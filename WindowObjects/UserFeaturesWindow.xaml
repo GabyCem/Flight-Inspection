@@ -1,0 +1,291 @@
+﻿<Window x:Class="Flight_Inspection_App.WindowObjects.UserFeaturesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Flight_Inspection_App.WindowObjects"
+        xmlns:oxy="http://oxyplot.org/wpf"
+        mc:Ignorable="d"
+        Title="UserFeaturesWindow" Height="426.501" Width="1000">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.75*"/>
+            <RowDefinition Height="0.25*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="238*"/>
+                <ColumnDefinition Width="0*"/>
+                <ColumnDefinition Width="159*"/>
+            </Grid.ColumnDefinitions>
+            <local:GraphsAndList Margin="10,0,2,-0.4"/>
+            <StackPanel Grid.Column="2" Margin="55,0,27.6,193.6">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text=" Height: " FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="FlightHeight" Text="{Binding VM_Height}" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text=" Speed: " FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="FlightSpeed" Text="{Binding VM_FlightSpeed}" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text=" Direction: " FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="FlightDirection" Text="{Binding VM_Direction}" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text=" Yaw: " FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="FlightYaw" Text="{Binding VM_Yaw}" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text=" Roll: " FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="FlightRoll" Text="{Binding VM_Roll}" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text=" Pitch: " FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="FlightPitch" Text="{Binding VM_Pitch}" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </StackPanel>
+            </StackPanel>
+            <Viewbox Stretch="Uniform" Width="108">
+                <Grid>
+                    <Canvas HorizontalAlignment="Left" Height="16" VerticalAlignment="Top" Width="108" Background="Gray" Canvas.Left="125" Canvas.Top="125" Margin="521,185,-521,-185">
+                        <Rectangle HorizontalAlignment="Left" Height="16" VerticalAlignment="Top" Width="16" Fill="Black" Canvas.Left="{Binding VM_Rudder}" />
+                    </Canvas>
+                </Grid>
+            </Viewbox>
+            <Viewbox Stretch="Uniform" Width="108">
+                <Grid>
+                    <Canvas HorizontalAlignment="Left" Height="16" VerticalAlignment="Top" Width="108" Background="Gray" Canvas.Left="125" Canvas.Top="125" Margin="422,89,-422,-89" RenderTransformOrigin="0.5,0.5">
+                        <Canvas.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-89.948"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Canvas.RenderTransform>
+                        <Rectangle HorizontalAlignment="Left" Height="16" VerticalAlignment="Top" Width="16" Fill="Black" Canvas.Left="{Binding VM_Throttle}" />
+                    </Canvas>
+                </Grid>
+            </Viewbox>
+
+
+            <Grid Margin="121,115,27.6,-54.4" Grid.Column="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="244*"/>
+                </Grid.ColumnDefinitions>
+                <DockPanel VerticalAlignment="Center" Margin="4.8,23,0,23" HorizontalAlignment="Left" Grid.Column="1">
+                    <Label Content="← rudder →" FontWeight="Bold" FontSize="14" DockPanel.Dock="Bottom" HorizontalContentAlignment="Center" />
+                    <Grid DockPanel.Dock="Top">
+                        <Label Content="← aileron →" FontWeight="Bold" FontSize="14"  HorizontalContentAlignment="Center" />
+                    </Grid>
+                    <Label Content="← throttle →" FontWeight="Bold" FontSize="14" DockPanel.Dock="Left" HorizontalContentAlignment="Center">
+                        <Label.LayoutTransform>
+                            <RotateTransform Angle="90" />
+                        </Label.LayoutTransform>
+                    </Label>
+                    <Grid DockPanel.Dock="Right">
+                        <Label  FontWeight="Bold" FontSize="14" Content="← elevator →" HorizontalContentAlignment="Center">
+                            <Label.LayoutTransform>
+                                <RotateTransform Angle="90" />
+                            </Label.LayoutTransform>
+                        </Label>
+                        <Label  FontWeight="Bold" FontSize="14" Content="{Binding ElementName=myJoyStick, Path=Elevator}" ContentStringFormat="F2" HorizontalContentAlignment="Left">
+                            <Label.LayoutTransform>
+                                <RotateTransform Angle="90" />
+                            </Label.LayoutTransform>
+                        </Label>
+                        <Label Content="{Binding RudderSliderVal}" ContentStringFormat="F2" FontWeight="Bold" FontSize="14" HorizontalContentAlignment="Right" VerticalContentAlignment="Bottom" />
+                    </Grid>
+                    <Viewbox Stretch="Uniform" Width="133">
+                        <Grid>
+                            <Canvas  x:Name="Base" Margin="0" Width="340" Height="340">
+                                <Ellipse HorizontalAlignment="Left" Height="340" VerticalAlignment="Top" Width="340">
+                                    <Ellipse.Fill>
+                                        <RadialGradientBrush>
+                                            <GradientStop Color="#FF2C2A2A" Offset="1" />
+                                            <GradientStop Color="#FF3A3737" />
+                                        </RadialGradientBrush>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <Ellipse HorizontalAlignment="Left" Height="170" VerticalAlignment="Top" Width="170" Canvas.Left="84" Canvas.Top="84">
+                                    <Ellipse.Fill>
+                                        <RadialGradientBrush>
+                                            <GradientStop Color="#FF0E0E0E" Offset="1" />
+                                            <GradientStop Color="#FF1D1D1D" />
+                                            <GradientStop Color="#FF323030" Offset="0.453" />
+                                        </RadialGradientBrush>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <Path Data="M205.75,65.625 L226.875,47.25 L248.5,65.625 z" Fill="#FF575757" HorizontalAlignment="Left" Height="18.375" Stretch="Fill" UseLayoutRounding="False" VerticalAlignment="Top" Width="42.75" Canvas.Left="147.875" Canvas.Top="37.625" />
+                                <Path Data="M205.75,65.625 L226.875,47.25 L248.5,65.625 z" Fill="#FF575757" HorizontalAlignment="Left" Height="18.375" Stretch="Fill" UseLayoutRounding="False" VerticalAlignment="Top" Width="42.75" RenderTransformOrigin="0.5,0.5" Canvas.Left="147.875" Canvas.Top="284.125">
+                                    <Path.RenderTransform>
+                                        <ScaleTransform ScaleY="-1" />
+                                    </Path.RenderTransform>
+                                </Path>
+                                <Path Data="M205.75,65.625 L226.875,47.25 L248.5,65.625 z" Fill="#FF575757" HorizontalAlignment="Left" Height="18.375" Stretch="Fill" UseLayoutRounding="False" VerticalAlignment="Top" Width="42.75" RenderTransformOrigin="0.5,0.5" Canvas.Left="270.875" Canvas.Top="162.125">
+                                    <Path.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform ScaleY="-1" ScaleX="-1" />
+                                            <RotateTransform Angle="-90" />
+                                        </TransformGroup>
+                                    </Path.RenderTransform>
+                                </Path>
+                                <Path Data="M205.75,65.625 L226.875,47.25 L248.5,65.625 z"  Fill="#FF575757" HorizontalAlignment="Left" Height="18.375" Stretch="Fill" UseLayoutRounding="False" VerticalAlignment="Top" Width="42.75" RenderTransformOrigin="0.5,0.5" Canvas.Left="24.375" Canvas.Top="163.625">
+                                    <Path.RenderTransform>
+                                        <TransformGroup>
+                                            <RotateTransform Angle="90" />
+                                            <ScaleTransform ScaleX="-1" />
+                                        </TransformGroup>
+                                    </Path.RenderTransform>
+                                </Path>
+
+                                <Canvas  x:Name="Knob" VerticalAlignment="Top" HorizontalAlignment="Left" Width="0" Height="0" RenderTransformOrigin="0.5,0.5" Canvas.Left="{Binding VM_Aileron}" Canvas.Top="{Binding VM_Elevator}">
+                                    <!--<Ellipse x:Name="Shadow" HorizontalAlignment="Left" Height="88" VerticalAlignment="Top" Width="86" Fill="#52131212" Canvas.Left="22" Canvas.Top="18" />-->
+                                    <Ellipse x:Name="KnobBase" HorizontalAlignment="Left" Height="90" VerticalAlignment="Top" Width="90" RenderTransformOrigin="0.5,0.5" Canvas.Top="1">
+                                        <Ellipse.Fill>
+                                            <RadialGradientBrush>
+                                                <GradientStop Color="#FF8A8A8A" />
+                                                <GradientStop Color="#FF979797" Offset="1" />
+                                            </RadialGradientBrush>
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                    <Ellipse HorizontalAlignment="Left" Height="74.313" VerticalAlignment="Top" Width="82.189" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" Canvas.Left="0.613" Canvas.Top="1.692">
+                                        <Ellipse.Fill>
+                                            <RadialGradientBrush>
+                                                <GradientStop Color="#C0828080" Offset="0.797" />
+                                                <GradientStop Color="#FD000000" />
+                                            </RadialGradientBrush>
+                                        </Ellipse.Fill>
+                                        <Ellipse.RenderTransform>
+                                            <TransformGroup>
+                                                <RotateTransform Angle="-28.434" />
+                                                <SkewTransform AngleX="-2.144" />
+                                                <TranslateTransform X="-1.199" Y="0.649" />
+                                            </TransformGroup>
+                                        </Ellipse.RenderTransform>
+                                    </Ellipse>
+                                    <Ellipse HorizontalAlignment="Left" Height="75.491"  VerticalAlignment="Top" Width="70.887" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" Canvas.Left="12.396" Canvas.Top="5.057">
+                                        <Ellipse.Fill>
+                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                <GradientStop Color="#00858585" Offset="0" />
+                                                <GradientStop Color="#1AFFFFFF" Offset="1" />
+                                                <GradientStop Color="#3FC2C2C2" Offset="0.349" />
+                                            </LinearGradientBrush>
+                                        </Ellipse.Fill>
+                                        <Ellipse.RenderTransform>
+                                            <TransformGroup>
+                                                <SkewTransform CenterX="3" CenterY="-4" />
+                                                <RotateTransform Angle="-.7628" />
+                                            </TransformGroup>
+                                        </Ellipse.RenderTransform>
+                                    </Ellipse>
+                                    <Ellipse HorizontalAlignment="Left" Height="72.722" VerticalAlignment="Top" Width="72.936" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" Canvas.Left="0.631" Canvas.Top="4.896">
+                                        <Ellipse.Fill>
+                                            <RadialGradientBrush>
+                                                <GradientStop Color="#9A909090" Offset="1" />
+                                                <GradientStop Color="Gray" />
+                                            </RadialGradientBrush>
+                                        </Ellipse.Fill>
+                                        <Ellipse.RenderTransform>
+                                            <RotateTransform Angle="-31.733"></RotateTransform>
+                                        </Ellipse.RenderTransform>
+                                    </Ellipse>
+                                    <Ellipse HorizontalAlignment="Left" Height="37" VerticalAlignment="Top" Width="39" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" Canvas.Left="14.001" Canvas.Top="11.001">
+                                        <Ellipse.RenderTransform>
+                                            <SkewTransform CenterX="-8"></SkewTransform>
+                                        </Ellipse.RenderTransform>
+                                        <Ellipse.Fill>
+                                            <RadialGradientBrush>
+                                                <GradientStop Color="#FF898989" Offset="0" />
+                                                <GradientStop Color="#38777777" Offset="1" />
+                                                <GradientStop Color="#55676767" Offset="0.672" />
+                                            </RadialGradientBrush>
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                    <Path Data="M9.74935,11.916 L13.084,15.166 L12.1668,16.833 L11.3333,18.583 L10.4999,20.416 L9.24961,20.833 L6.99967,20.583 L6.75,18.333 L7.66697,15.333 L8.75037,12.916 z M3.6672,9.74999 L7.084,10.083 L5.75037,12.25 L4.66704,14 L4.33365,16.583 L4.25036,18.75 L4.41695,20.5 L0,20.166 L0.16699,16.916 L1.16693,13.833 L2.50016,11.583 z M18.1671,6.33301 L21.167,6.33301 L21.667,8.5 L20.75,9.75 L18.5841,10.833 L15.8337,13 L12.584,8.83301 L15.2502,7 z M20.917,0 L20.917,3.16601 L18.1674,2.99999 L15.8337,3.583 L13.5837,4.833 L11.3337,5.99999 L10.5003,6.416 L8.584,3.833 L11.0842,2.41601 L13.3341,0.833006 L16.417,0.166016 z" Fill="#99EEEEEE" HorizontalAlignment="Left" Height="20.833" Stretch="Fill" UseLayoutRounding="False" VerticalAlignment="Top" Width="21.667" Canvas.Left="18.166" Canvas.Top="15.917" />
+
+                                    <Canvas.RenderTransform>
+                                        <TranslateTransform x:Name="knobPosition" />
+                                    </Canvas.RenderTransform>
+                                    <Canvas.Resources>
+
+                                        <Storyboard x:Key="CenterKnob" Name="centerKnob">
+                                            <!--Completed="centerKnob_Completed"-->
+
+                                            <DoubleAnimation Storyboard.TargetName="knobPosition"
+                             Storyboard.TargetProperty="X" To="0" Duration="0:0:0.2">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <BackEase EasingMode="EaseInOut" />
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation Storyboard.TargetName="knobPosition" Storyboard.TargetProperty="Y" To="0" Duration="0:0:0.2">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <BackEase EasingMode="EaseInOut" />
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </Canvas.Resources>
+                                </Canvas>
+                            </Canvas>
+                        </Grid>
+                    </Viewbox>
+                </DockPanel>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.Resources>
+                <Thickness x:Key="myMargin" Top="20" Left="10" Right="10" Bottom ="20"></Thickness>
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.75*"/>
+                <RowDefinition Height="0.25*"/>
+            </Grid.RowDefinitions>
+
+            <DockPanel Grid.Row="0">
+                <Button Content="Algorithm" Name="openButton" Click="btnOpen_Click" Margin="{StaticResource myMargin}"/>
+                <Button Name="beginButton" Click="btnBegin_Click" Margin="{StaticResource myMargin}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="..\Pictures\beginIcon.png" Width="16" Height="18"/>
+                    </StackPanel>
+                </Button>
+                <Button Name="rewindButton" Click="btnRewind_Click" Margin="{StaticResource myMargin}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="..\Pictures\rewindIcon.png" Width="16" Height="18"/>
+                    </StackPanel>
+                </Button>
+                <Button Name="stopButton" Click="btnStop_Click" Margin="{StaticResource myMargin}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="..\Pictures\stopIcon.png" Width="16" Height="18"/>
+                    </StackPanel>
+                </Button>
+                <Button Name="playButton" Click="btnPlay_Click" Margin="{StaticResource myMargin}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="..\Pictures\playIcon.png" Width="16" Height="18"/>
+                    </StackPanel>
+                </Button>
+                <Button Name="pauseButton" Click="btnPause_Click" Margin="{StaticResource myMargin}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="..\Pictures\pauseIcon.png" Width="16" Height="18"/>
+                    </StackPanel>
+                </Button>
+                <Button Name="forwardButton" Click="btnForward_Click" Margin="{StaticResource myMargin}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="..\Pictures\forwardIcon.png" Width="16" Height="18"/>
+                    </StackPanel>
+                </Button>
+                <Button Name="endButton" Click="btnEnd_Click" Margin="{StaticResource myMargin}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="..\Pictures\endIcon.png" Width="16" Height="18"/>
+                    </StackPanel>
+                </Button>
+                <TextBlock Grid.Column="1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Play speed" VerticalAlignment="Center" Height="19" Margin="20,10,5,10"/>
+                <TextBox x:Name="userSpeedInput" Grid.Column="1" HorizontalAlignment="Left" Height="19" TextWrapping="Wrap" VerticalAlignment="Center" Width="100" Margin="{StaticResource myMargin}"/>
+                <Button Content="Apply" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="38" Height="19" Click="btnApply_Click" Margin="{StaticResource myMargin}"/>
+                <TextBlock x:Name="Timer" Text="{Binding VM_CurTime}" FontSize="25" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="{StaticResource myMargin}"/>
+            </DockPanel>
+            <Slider Name="sliProgress" Thumb.DragStarted="sliProgress_DragStarted"  Thumb.DragCompleted="sliProgress_DragCompleted" ValueChanged="sliProgress_ValueChanged" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="20,3,20,0" Grid.Row="2"/>
+        </Grid>
+
+    </Grid>
+</Window>
